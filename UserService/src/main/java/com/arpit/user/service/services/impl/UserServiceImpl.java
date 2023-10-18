@@ -8,7 +8,7 @@ import com.arpit.user.service.exceptions.ResourceNotFoundException;
 import com.arpit.user.service.repositories.UserRepository;
 import com.arpit.user.service.services.UserService;
 
-import antlr.collections.List;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -18,15 +18,17 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User saveUser(User user) {
-		// TODO Auto-generated method stub
+//		lets generate ID
+		String randomUserId = UUID.randomUUID().toString();
+		user.setUserId(randomUserId);
 		return userRepo.save(user);
 		
 	}
 
 	@Override
-	public List getAllUser() {
+	public List<User> getAllUser() {
 		// TODO Auto-generated method stub
-		return (List) userRepo.findAll();
+		return userRepo.findAll();
 	}
 
 	@Override

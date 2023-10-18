@@ -2,7 +2,7 @@ package com.arpit.user.service.services;
 
 import com.arpit.user.service.entities.User;
 
-import antlr.collections.List;
+import java.util.*;
 
 public interface UserService {
 
@@ -11,7 +11,7 @@ public interface UserService {
 	
 //Read(Get)
 	
-	List getAllUser();
+	List<User> getAllUser();
 //	get single user
 	User getUser(String userId);
 	
