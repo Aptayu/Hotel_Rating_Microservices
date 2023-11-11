@@ -8,16 +8,15 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class Rating {
+public class Hotel {
 	
-	private String ratingId;
-	private String userId;
+	
 	private String hotelId;
-	private int Rating;
-	private String remark;
-	private Hotel hotel;
-
+	private String hotelName;
+	private String location;
+	private String about;
+	
 }
