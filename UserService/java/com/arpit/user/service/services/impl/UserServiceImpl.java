@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService{
 //		http://localhost:8083/ratings/users/16019b5b-dbb3-4828-bf1c-f2ba6092aec8
 //		lets try with rest template, to autowire you need to have it's bean which you should make in cofig file
 //		or declare bean in main class with @SpringBootApplication annotation whiohc is one config class also
-		Rating[] ratingsOfUser = restTemplate.getForObject("http://localhost:8083/ratings/users/" + user.getUserId(), Rating[].class);
+		Rating[] ratingsOfUser = restTemplate.getForObject("http://RATING-SERVICE/ratings/users/" + user.getUserId(), Rating[].class);
 		logger.info("rating of user: []", ratingsOfUser);
 		
 		List<Rating> listOfRatingsOfUser = Arrays.asList(ratingsOfUser);
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService{
 //			http://localhost:8082/hotels/1494dfd8-aeeb-4c49-94b4-88f28901351f
 			logger.info("hotel id = " + rating.getHotelId());
 			
-			ResponseEntity<Hotel> forEntity = restTemplate.getForEntity("http://localhost:8082/hotels/" + rating.getHotelId(), Hotel.class);
+			ResponseEntity<Hotel> forEntity = restTemplate.getForEntity("http://HOTEL-SERVICE/hotels/" + rating.getHotelId(), Hotel.class);
 			
 			Hotel hotel = forEntity.getBody();
 			

@@ -17,7 +17,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
   application:
-    name: HOTEL_SERVICE
+    name: HOTEL-SERVICE
 eureka:
   instance:
     prefer-ip-address: true
