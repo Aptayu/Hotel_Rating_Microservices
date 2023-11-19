@@ -12,6 +12,7 @@ import com.arpit.user.service.entities.Hotel;
 import com.arpit.user.service.entities.Rating;
 import com.arpit.user.service.entities.User;
 import com.arpit.user.service.exceptions.ResourceNotFoundException;
+import com.arpit.user.service.external.services.HotelService;
 import com.arpit.user.service.repositories.UserRepository;
 import com.arpit.user.service.services.UserService;
 
@@ -25,6 +26,9 @@ public class UserServiceImpl implements UserService{
 	private UserRepository userRepo;
 	@Autowired
 	private RestTemplate restTemplate;
+	
+	@Autowired
+	private HotelService hotelService;
 	
 	private Logger logger =  LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -62,11 +66,13 @@ public class UserServiceImpl implements UserService{
 //			http://localhost:8082/hotels/1494dfd8-aeeb-4c49-94b4-88f28901351f
 			logger.info("hotel id = " + rating.getHotelId());
 			
-			ResponseEntity<Hotel> forEntity = restTemplate.getForEntity("http://HOTEL-SERVICE/hotels/" + rating.getHotelId(), Hotel.class);
+//			ResponseEntity<Hotel> forEntity = restTemplate.getForEntity("http://HOTEL-SERVICE/hotels/" + rating.getHotelId(), Hotel.class);
+//			
+//			Hotel hotel = forEntity.getBody();
 			
-			Hotel hotel = forEntity.getBody();
+			Hotel hotel = hotelService.getHotel(rating.getHotelId());
 			
-			logger.info("response status code: {}", forEntity.getStatusCode());
+//			logger.info("response status code: {}", forEntity.getStatusCode());
 //			set the hotel to rating
 			rating.setHotel(hotel);
 //			return new Rating
