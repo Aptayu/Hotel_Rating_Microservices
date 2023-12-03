@@ -1,7 +1,8 @@
 server:
   port: 8081
-  
 spring:
+  application:
+    name: USER-SERVICE
   datasource:
     name: microservices_hotel_rating
     url: jdbc:mysql://localhost:3306/microservices_hotel_rating
@@ -16,9 +17,11 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-  application:
-    name: USER-SERVICE       
-#eureka:
+  config:
+    import: configserver:http://localhost:8085
+#  profiles:
+#    active:
+#    - prod
 #  instance:
 #    prefer-ip-address: true
 #  client:
