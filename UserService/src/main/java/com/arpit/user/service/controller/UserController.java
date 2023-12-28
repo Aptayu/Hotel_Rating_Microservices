@@ -20,6 +20,7 @@ import com.arpit.user.service.services.UserService;
 import com.arpit.user.service.services.impl.UserServiceImpl;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 
 @RestController
 @RequestMapping("/users")
@@ -42,12 +43,18 @@ public class UserController {
 		List<User> allUser = userService.getAllUser();
 		return ResponseEntity.ok(allUser);
 	}
-
+	int retryCount = 1;
 //	get one user
 	@GetMapping("/{userId}")
-	@CircuitBreaker(name = "ratingHotelBreaker", fallbackMethod = "ratingHotelFallback")
+//	@CircuitBreaker(name = "ratingHotelBreaker", fallbackMethod = "ratingHotelFallback")
+	@Retry(name = "ratingHotelService", fallbackMethod = "ratingHotelFallback")
 	public ResponseEntity<User> getSingleUser(@PathVariable String userId) {
-//		 in the above path variable if in the mapping name was diff you should mention in bracket next to path variable
+
+		//in the above path variable if in the mapping name was diff you should mention in bracket next to path variable
+		logger.info("Retry count: getSingleUserHandler().begin");
+		logger.info("Retry count: {}", retryCount);
+		retryCount++;
+		
 		User user = userService.getUser(userId);
 		return ResponseEntity.ok(user);
 
