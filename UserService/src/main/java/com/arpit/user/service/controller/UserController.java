@@ -20,6 +20,7 @@ import com.arpit.user.service.services.UserService;
 import com.arpit.user.service.services.impl.UserServiceImpl;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 
 @RestController
@@ -47,7 +48,8 @@ public class UserController {
 //	get one user
 	@GetMapping("/{userId}")
 //	@CircuitBreaker(name = "ratingHotelBreaker", fallbackMethod = "ratingHotelFallback")
-	@Retry(name = "ratingHotelService", fallbackMethod = "ratingHotelFallback")
+//	@Retry(name = "ratingHotelService", fallbackMethod = "ratingHotelFallback"
+	@RateLimiter(name = "userRateLimiter", fallbackMethod = "ratingHotelFallback")
 	public ResponseEntity<User> getSingleUser(@PathVariable String userId) {
 
 		//in the above path variable if in the mapping name was diff you should mention in bracket next to path variable
